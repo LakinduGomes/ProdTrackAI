@@ -1,24 +1,70 @@
 @extends('layouts.business')
 @section('content')
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap"
         rel="stylesheet">
     <style>
         :root {
-            --accent: #6366f1;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --surface: #fff;
-            --bg: #f8fafc;
-            --muted: #64748b;
-            --border: rgba(0, 0, 0, 0.06);
-            --shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.04);
+            --accent: #818CF8;
+            --accent-strong: #6366F1;
+            --accent-dim: rgba(129, 140, 248, 0.14);
+            --success: #34D399;
+            --success-bg: rgba(52, 211, 153, 0.14);
+            --warning: #FBBF24;
+            --warning-bg: rgba(251, 191, 36, 0.14);
+            --danger: #F87171;
+            --danger-bg: rgba(248, 113, 113, 0.14);
+            --bg: #0A0D14;
+            --surface: #12161F;
+            --surface-2: #171C27;
+            --surface-3: #1D2330;
+            --text: #E7E9EE;
+            --muted: #8891A5;
+            --border: rgba(255, 255, 255, 0.07);
+            --border-strong: rgba(255, 255, 255, 0.14);
+            --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
+            --mono: 'JetBrains Mono', monospace;
+            --display: 'Manrope', sans-serif;
+            --body: 'Inter', sans-serif;
+        }
+
+        html {
+            background: var(--bg) !important;
+            color-scheme: dark;
         }
 
         body,
         .content-wrapper {
             background: var(--bg) !important;
-            font-family: 'DM Sans', sans-serif;
+            font-family: var(--body);
+            color: var(--text);
+        }
+
+        ::selection {
+            background: var(--accent-dim);
+            color: var(--text);
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--surface);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--surface-3);
+            border-radius: 8px;
+            border: 2px solid var(--surface);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--border-strong);
+        }
+
+        * {
+            scrollbar-color: var(--surface-3) var(--surface);
         }
 
         .pt-page {
@@ -26,11 +72,16 @@
         }
 
         .pt-title {
-            font-family: 'Syne', sans-serif;
+            font-family: var(--display);
             font-size: 1.4rem;
-            font-weight: 800;
-            color: #0f172a;
+            font-weight: 700;
+            color: var(--text);
             margin: 0;
+            letter-spacing: -.01em;
+        }
+
+        .pt-title i {
+            color: var(--accent) !important;
         }
 
         .pt-sub {
@@ -47,26 +98,40 @@
         }
 
         .kpi {
+            position: relative;
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 16px;
-            padding: 1rem 1.2rem;
+            padding: 1.1rem 1.2rem;
             box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .kpi::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--kpi-glow, var(--accent));
+            box-shadow: 0 0 12px var(--kpi-glow, var(--accent));
         }
 
         .kpi-val {
-            font-family: 'Syne', sans-serif;
+            font-family: var(--display);
             font-size: 1.6rem;
-            font-weight: 800;
-            color: #0f172a;
+            font-weight: 700;
+            color: var(--text);
         }
 
         .kpi-lbl {
-            font-size: .7rem;
+            font-size: .68rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: .05em;
+            letter-spacing: .08em;
             color: var(--muted);
+            margin-top: 2px;
         }
 
         .card-pt {
@@ -89,35 +154,63 @@
 
         .task-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, .07);
+            border-color: var(--border-strong);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, .4);
+        }
+
+        .task-name {
+            font-weight: 700;
+            font-size: .9rem;
+            color: var(--text);
+        }
+
+        .task-desc {
+            font-size: .8rem;
+            color: var(--muted);
+            margin-bottom: .6rem;
+        }
+
+        .task-meta {
+            font-size: .75rem;
+            color: var(--muted);
+        }
+
+        .task-meta strong {
+            color: var(--text);
         }
 
         .badge-status {
             font-size: .65rem;
             font-weight: 700;
-            padding: .25rem .65rem;
+            padding: .28rem .65rem;
             border-radius: 8px;
             text-transform: uppercase;
+            letter-spacing: .03em;
+            border: 1px solid transparent;
         }
 
         .badge-status.completed {
-            background: #dcfce7;
-            color: #16a34a;
+            background: var(--success-bg);
+            color: var(--success);
+            border-color: rgba(52, 211, 153, 0.25);
         }
 
         .badge-status.in_progress {
-            background: #e0e7ff;
-            color: #4338ca;
+            background: var(--accent-dim);
+            color: var(--accent);
+            border-color: rgba(129, 140, 248, 0.25);
         }
 
         .badge-status.overdue {
-            background: #fee2e2;
-            color: #dc2626;
+            background: var(--danger-bg);
+            color: var(--danger);
+            border-color: rgba(248, 113, 113, 0.25);
         }
 
         .badge-status.pending {
-            background: #fef9c3;
-            color: #b45309;
+            background: var(--warning-bg);
+            color: var(--warning);
+            border-color: rgba(251, 191, 36, 0.25);
         }
 
         .badge-pri {
@@ -128,37 +221,71 @@
         }
 
         .badge-pri.high {
-            background: #fee2e2;
-            color: #dc2626;
+            background: var(--danger-bg);
+            color: var(--danger);
         }
 
         .badge-pri.medium {
-            background: #fef3c7;
-            color: #d97706;
+            background: var(--warning-bg);
+            color: var(--warning);
         }
 
         .badge-pri.low {
-            background: #dcfce7;
-            color: #16a34a;
+            background: var(--success-bg);
+            color: var(--success);
         }
 
-        .risk-bar-bg {
-            background: #e2e8f0;
-            border-radius: 999px;
-            height: 5px;
-            width: 60px;
+        .alert-success {
+            background: var(--success-bg);
+            color: var(--success);
+            border: 1px solid rgba(52, 211, 153, 0.25);
         }
 
-        .form-select-sm {
+        .alert-overdue {
+            background: var(--danger-bg) !important;
+            border: 1px solid rgba(248, 113, 113, 0.3) !important;
+            border-radius: 14px;
+            padding: .85rem 1.1rem;
+            font-size: .82rem;
+            color: var(--text);
+        }
+
+        .alert-overdue i {
+            color: var(--danger);
+        }
+
+        .alert-overdue strong {
+            color: var(--danger);
+        }
+
+        .form-select,
+        .form-select-sm,
+        select {
             border-radius: 8px;
             font-size: .78rem;
-            border: 1px solid #e2e8f0;
+            border: 1px solid var(--border-strong) !important;
+            background: var(--surface-2) !important;
+            color: var(--text) !important;
+        }
+
+        .form-select:focus,
+        select:focus {
+            background: var(--surface-2) !important;
+            color: var(--text) !important;
+            border-color: var(--accent) !important;
+            box-shadow: 0 0 0 3px var(--accent-dim);
+        }
+
+        .form-select option,
+        select option {
+            background: var(--surface-2);
+            color: var(--text);
         }
     </style>
 
     <div class="pt-page">
         <div class="mb-4">
-            <div class="pt-title"><i class="fas fa-tasks me-2 text-primary"></i>My Tasks</div>
+            <div class="pt-title"><i class="fas fa-tasks me-2"></i>My Tasks</div>
             <div class="pt-sub">Your assigned tasks and their current status</div>
         </div>
 
@@ -166,62 +293,58 @@
             <div class="alert alert-success rounded-3 mb-3" style="font-size:.83rem;">{{ session('success') }}</div>
         @endif
 
-        {{-- KPIs --}}
         <div class="kpi-row">
             <div class="kpi">
                 <div class="kpi-val">{{ $totalTasks }}</div>
                 <div class="kpi-lbl">Total</div>
             </div>
-            <div class="kpi" style="border-left:3px solid #10b981">
-                <div class="kpi-val" style="color:#10b981">{{ $completedTasks }}</div>
+            <div class="kpi" style="--kpi-glow:#34D399">
+                <div class="kpi-val" style="color:#34D399">{{ $completedTasks }}</div>
                 <div class="kpi-lbl">Completed</div>
             </div>
-            <div class="kpi" style="border-left:3px solid #6366f1">
-                <div class="kpi-val" style="color:#6366f1">{{ $inProgressTasks }}</div>
+            <div class="kpi" style="--kpi-glow:#818CF8">
+                <div class="kpi-val" style="color:#818CF8">{{ $inProgressTasks }}</div>
                 <div class="kpi-lbl">In Progress</div>
             </div>
-            <div class="kpi" style="border-left:3px solid #ef4444">
-                <div class="kpi-val" style="color:#ef4444">{{ $overdueTasks }}</div>
+            <div class="kpi" style="--kpi-glow:#F87171">
+                <div class="kpi-val" style="color:#F87171">{{ $overdueTasks }}</div>
                 <div class="kpi-lbl">Overdue</div>
             </div>
         </div>
 
         @if ($overdueTasks > 0)
-            <div class="alert d-flex align-items-center gap-2 mb-4"
-                style="background:#fee2e2;border:1px solid #fca5a5;border-radius:14px;padding:.85rem 1.1rem;font-size:.82rem;">
-                <i class="fas fa-exclamation-triangle text-danger"></i>
+            <div class="alert alert-overdue d-flex align-items-center gap-2 mb-4">
+                <i class="fas fa-exclamation-triangle"></i>
                 <span>You have <strong>{{ $overdueTasks }} overdue task{{ $overdueTasks > 1 ? 's' : '' }}</strong>. Please update
                     your progress.</span>
             </div>
         @endif
 
-        {{-- Task Cards --}}
         @forelse($tasks as $task)
             <div class="task-card">
                 <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
                     <div class="flex-grow-1">
                         <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
-                            <span style="font-weight:700;font-size:.9rem;color:#0f172a;">{{ $task->title }}</span>
+                            <span class="task-name">{{ $task->title }}</span>
                             <span class="badge-pri {{ $task->priority }}">{{ ucfirst($task->priority) }}</span>
                             <span
                                 class="badge-status {{ $task->status }}">{{ ucfirst(str_replace('_', ' ', $task->status)) }}</span>
                         </div>
-                        <div style="font-size:.8rem;color:var(--muted);margin-bottom:.6rem;">{{ $task->description }}</div>
+                        <div class="task-desc">{{ $task->description }}</div>
                         <div class="d-flex align-items-center gap-3 flex-wrap">
-                            <span style="font-size:.75rem;color:var(--muted);"><i class="far fa-calendar me-1"></i>Due:
+                            <span class="task-meta"><i class="far fa-calendar me-1"></i>Due:
                                 <strong
-                                    style="color:{{ \Carbon\Carbon::parse($task->deadline)->isPast() && $task->status != 'completed' ? '#ef4444' : '#0f172a' }}">{{ \Carbon\Carbon::parse($task->deadline)->format('M d, Y') }}</strong></span>
+                                    style="color:{{ \Carbon\Carbon::parse($task->deadline)->isPast() && $task->status != 'completed' ? '#F87171' : 'var(--text)' }}">{{ \Carbon\Carbon::parse($task->deadline)->format('M d, Y') }}</strong></span>
                             @if ($task->prediction)
                                 @php $pct = round($task->prediction->delay_probability * 100); @endphp
-                                <span style="font-size:.75rem;color:var(--muted);">AI Risk:
+                                <span class="task-meta">AI Risk:
                                     <span
-                                        style="font-weight:700;color:{{ $pct >= 70 ? '#ef4444' : ($pct >= 40 ? '#d97706' : '#16a34a') }}">{{ $pct }}%</span>
+                                        style="font-weight:700;color:{{ $pct >= 70 ? '#F87171' : ($pct >= 40 ? '#FBBF24' : '#34D399') }}">{{ $pct }}%</span>
                                 </span>
                             @endif
                         </div>
                     </div>
 
-                    {{-- Status update --}}
                     <form method="POST" action="{{ route('business.tasks.updateStatus', $task->id) }}"
                         class="d-flex align-items-center gap-2">
                         @csrf

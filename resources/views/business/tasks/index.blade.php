@@ -1,24 +1,96 @@
 @extends('layouts.business')
 @section('content')
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap"
         rel="stylesheet">
     <style>
         :root {
-            --accent: #6366f1;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --surface: #fff;
-            --bg: #f8fafc;
-            --muted: #64748b;
-            --border: rgba(0, 0, 0, 0.06);
-            --shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.04);
+            --accent: #818CF8;
+            --accent-strong: #6366F1;
+            --accent-dim: rgba(129, 140, 248, 0.14);
+            --success: #34D399;
+            --success-bg: rgba(52, 211, 153, 0.14);
+            --warning: #FBBF24;
+            --warning-bg: rgba(251, 191, 36, 0.14);
+            --danger: #F87171;
+            --danger-bg: rgba(248, 113, 113, 0.14);
+            --bg: #0A0D14;
+            --surface: #12161F;
+            --surface-2: #171C27;
+            --surface-3: #1D2330;
+            --text: #E7E9EE;
+            --muted: #8891A5;
+            --border: rgba(255, 255, 255, 0.07);
+            --border-strong: rgba(255, 255, 255, 0.14);
+            --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
+            --mono: 'JetBrains Mono', monospace;
+            --display: 'Manrope', sans-serif;
+            --body: 'Inter', sans-serif;
+        }
+
+        html {
+            background: var(--bg) !important;
+            color-scheme: dark;
+        }
+
+        .pt-table,
+        .pt-table thead,
+        .pt-table tbody,
+        .pt-table tr,
+        .pt-table th,
+        .pt-table td {
+            background-color: transparent !important;
+        }
+
+        .pt-table tbody tr {
+            background-color: var(--surface-2) !important;
+        }
+
+        .pt-table tbody tr:hover {
+            background-color: var(--surface-3) !important;
+        }
+
+        .pt-table tbody td:first-child,
+        .pt-table tbody td:last-child {
+            background-color: transparent !important;
         }
 
         body,
         .content-wrapper {
             background: var(--bg) !important;
-            font-family: 'DM Sans', sans-serif;
+            font-family: var(--body);
+            color: var(--text);
+        }
+
+        ::selection {
+            background: var(--accent-dim);
+            color: var(--text);
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--surface);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--surface-3);
+            border-radius: 8px;
+            border: 2px solid var(--surface);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--border-strong);
+        }
+
+        * {
+            scrollbar-color: var(--surface-3) var(--surface);
+        }
+
+        .modal-backdrop.show {
+            opacity: 0.6;
         }
 
         .pt-page {
@@ -26,11 +98,16 @@
         }
 
         .pt-title {
-            font-family: 'Syne', sans-serif;
+            font-family: var(--display);
             font-size: 1.4rem;
-            font-weight: 800;
-            color: #0f172a;
+            font-weight: 700;
+            color: var(--text);
             margin: 0;
+            letter-spacing: -.01em;
+        }
+
+        .pt-title i {
+            color: var(--accent);
         }
 
         .pt-sub {
@@ -47,26 +124,40 @@
         }
 
         .kpi {
+            position: relative;
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 16px;
-            padding: 1rem 1.2rem;
+            padding: 1.1rem 1.2rem;
             box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .kpi::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--kpi-glow, var(--accent));
+            box-shadow: 0 0 12px var(--kpi-glow, var(--accent));
         }
 
         .kpi-val {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: #0f172a;
+            font-family: var(--display);
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--text);
         }
 
         .kpi-lbl {
-            font-size: .7rem;
+            font-size: .68rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: .05em;
+            letter-spacing: .08em;
             color: var(--muted);
+            margin-top: 2px;
         }
 
         .card-pt {
@@ -78,48 +169,56 @@
         }
 
         .btn-pt {
-            background: var(--accent);
+            background: var(--accent-strong);
             color: #fff;
             border: none;
             border-radius: 10px;
-            padding: .5rem 1.1rem;
+            padding: .55rem 1.15rem;
             font-size: .82rem;
             font-weight: 600;
             cursor: pointer;
             transition: .2s;
+            box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.3), 0 4px 14px rgba(99, 102, 241, 0.25);
         }
 
         .btn-pt:hover {
-            background: #4f46e5;
+            background: var(--accent);
             color: #fff;
+            box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.5), 0 6px 18px rgba(99, 102, 241, 0.35);
         }
 
         .badge-status {
             font-size: .65rem;
             font-weight: 700;
-            padding: .25rem .65rem;
+            padding: .28rem .65rem;
             border-radius: 8px;
             text-transform: uppercase;
+            letter-spacing: .03em;
+            border: 1px solid transparent;
         }
 
         .badge-status.completed {
-            background: #dcfce7;
-            color: #16a34a;
+            background: var(--success-bg);
+            color: var(--success);
+            border-color: rgba(52, 211, 153, 0.25);
         }
 
         .badge-status.in_progress {
-            background: #e0e7ff;
-            color: #4338ca;
+            background: var(--accent-dim);
+            color: var(--accent);
+            border-color: rgba(129, 140, 248, 0.25);
         }
 
         .badge-status.overdue {
-            background: #fee2e2;
-            color: #dc2626;
+            background: var(--danger-bg);
+            color: var(--danger);
+            border-color: rgba(248, 113, 113, 0.25);
         }
 
         .badge-status.pending {
-            background: #fef9c3;
-            color: #b45309;
+            background: var(--warning-bg);
+            color: var(--warning);
+            border-color: rgba(251, 191, 36, 0.25);
         }
 
         .badge-pri {
@@ -127,107 +226,264 @@
             font-weight: 700;
             padding: .2rem .55rem;
             border-radius: 6px;
+            white-space: nowrap;
         }
 
         .badge-pri.high {
-            background: #fee2e2;
-            color: #dc2626;
+            background: var(--danger-bg);
+            color: var(--danger);
         }
 
         .badge-pri.medium {
-            background: #fef3c7;
-            color: #d97706;
+            background: var(--warning-bg);
+            color: var(--warning);
         }
 
         .badge-pri.low {
-            background: #dcfce7;
-            color: #16a34a;
+            background: var(--success-bg);
+            color: var(--success);
         }
 
         .pt-table {
             width: 100%;
             border-collapse: separate;
             border-spacing: 0 .4rem;
+            background: transparent;
         }
 
         .pt-table thead th {
-            font-size: .68rem;
+            font-size: .66rem;
             font-weight: 700;
             text-transform: uppercase;
+            letter-spacing: .06em;
             color: var(--muted);
             padding: .4rem .9rem;
             border: none;
+            background: transparent;
         }
 
         .pt-table tbody tr {
-            background: #f8fafc;
+            background: var(--surface-2);
             transition: .2s;
         }
 
         .pt-table tbody tr:hover {
-            background: #fff;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, .05);
+            background: var(--surface-3);
+            box-shadow: 0 0 0 1px var(--border-strong);
         }
 
         .pt-table tbody td {
             padding: .75rem .9rem;
             font-size: .82rem;
-            color: #0f172a;
+            color: var(--text);
             border: none;
+            vertical-align: middle;
         }
 
         .pt-table tbody td:first-child {
             border-radius: 10px 0 0 10px;
+            color: var(--muted);
+            font-family: var(--mono);
+            font-size: .74rem;
         }
 
         .pt-table tbody td:last-child {
             border-radius: 0 10px 10px 0;
         }
 
+        .task-desc {
+            font-size: .72rem;
+            color: var(--muted);
+        }
+
+        .task-source {
+            font-size: .68rem;
+            color: var(--muted);
+            opacity: .75;
+        }
+
+        .deadline-overdue {
+            font-size: .68rem;
+            color: var(--danger);
+            font-family: var(--mono);
+        }
+
+        .assignee-cell {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: .35rem;
+            row-gap: .3rem;
+        }
+
+        .assignee-name {
+            font-weight: 600;
+            color: var(--text);
+            white-space: nowrap;
+        }
+
         .modal-content {
             border-radius: 18px;
-            border: none;
+            border: 1px solid var(--border-strong);
+            background: var(--surface);
+            color: var(--text);
+        }
+
+        .modal-title {
+            color: var(--text);
+        }
+
+        .btn-close {
+            filter: invert(1) grayscale(1) brightness(1.6);
         }
 
         .form-control,
-        .form-select {
+        .form-select,
+        input,
+        select,
+        textarea {
             border-radius: 10px;
             font-size: .85rem;
-            border: 1px solid #e2e8f0;
+            border: 1px solid var(--border-strong);
+            background: var(--surface-2) !important;
+            color: var(--text) !important;
+        }
+
+        .form-control:focus,
+        .form-select:focus,
+        input:focus,
+        select:focus,
+        textarea:focus {
+            background: var(--surface-2) !important;
+            color: var(--text) !important;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-dim);
+        }
+
+        .form-control::placeholder,
+        input::placeholder,
+        textarea::placeholder {
+            color: var(--muted) !important;
+            opacity: 1;
+        }
+
+        .form-select option,
+        select option {
+            background: var(--surface-2);
+            color: var(--text);
         }
 
         .form-label {
             font-size: .78rem;
             font-weight: 600;
-            color: #374151;
+            color: var(--muted);
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1) brightness(1.6);
+            cursor: pointer;
+        }
+
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus {
+            -webkit-text-fill-color: var(--text) !important;
+            -webkit-box-shadow: 0 0 0 1000px var(--surface-2) inset !important;
+            caret-color: var(--text);
+        }
+
+        .btn-light.border {
+            background: var(--surface-2);
+            border-color: var(--border-strong) !important;
+            color: var(--text);
+        }
+
+        .btn-light.border:hover {
+            background: var(--surface-3);
+            color: var(--text);
+        }
+
+        .alert-success {
+            background: var(--success-bg);
+            color: var(--success);
+            border: 1px solid rgba(52, 211, 153, 0.25);
         }
 
         .auto-assign-box {
-            background: #f0fdf4;
-            border: 1px solid #86efac;
+            background: var(--success-bg);
+            border: 1px solid rgba(52, 211, 153, 0.3);
             border-radius: 10px;
             padding: .65rem 1rem;
             font-size: .8rem;
-            color: #15803d;
+            color: var(--success);
             margin-bottom: 1rem;
             display: none;
         }
 
         .workload-pill {
-            font-size: .65rem;
+            font-size: .62rem;
             font-weight: 600;
             padding: .15rem .5rem;
             border-radius: 6px;
-            background: #e0e7ff;
-            color: #4338ca;
-            margin-left: 4px;
+            background: var(--accent-dim);
+            color: var(--accent);
+            white-space: nowrap;
+        }
+
+        .risk-cell {
+            display: flex;
+            align-items: center;
+            gap: .55rem;
+        }
+
+        .risk-ring {
+            --pct: 0;
+            --ring-color: var(--success);
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            position: relative;
+            background: conic-gradient(var(--ring-color) calc(var(--pct) * 1%), rgba(255, 255, 255, 0.08) 0);
+            flex-shrink: 0;
+        }
+
+        .risk-ring::before {
+            content: '';
+            position: absolute;
+            inset: 3px;
+            border-radius: 50%;
+            background: var(--surface-2);
+        }
+
+        .risk-ring-val {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--mono);
+            font-size: .58rem;
+            font-weight: 700;
+            color: var(--ring-color);
+        }
+
+        .risk-lbl {
+            font-size: .68rem;
+            color: var(--muted);
+            font-family: var(--mono);
+            white-space: nowrap;
+        }
+
+        .no-data-lbl {
+            font-size: .72rem;
+            color: var(--muted);
         }
     </style>
 
     <div class="pt-page">
         <div class="d-flex justify-content-between align-items-start mb-4 flex-wrap gap-3">
             <div>
-                <div class="pt-title"><i class="fas fa-layer-group me-2 text-primary"></i>Task Board</div>
+                <div class="pt-title"><i class="fas fa-layer-group me-2"></i>Task Board</div>
                 <div class="pt-sub">Manage and monitor all tasks across your team</div>
             </div>
             @if (!$isReadOnly)
@@ -241,31 +497,29 @@
             <div class="alert alert-success rounded-3 mb-3" style="font-size:.83rem;">{{ session('success') }}</div>
         @endif
 
-        {{-- KPIs --}}
         <div class="kpi-row">
             <div class="kpi">
                 <div class="kpi-val">{{ $totalTasks }}</div>
                 <div class="kpi-lbl">Total</div>
             </div>
-            <div class="kpi" style="border-left:3px solid #10b981">
-                <div class="kpi-val" style="color:#10b981">{{ $completedTasks }}</div>
+            <div class="kpi" style="--kpi-glow:#34D399">
+                <div class="kpi-val" style="color:#34D399">{{ $completedTasks }}</div>
                 <div class="kpi-lbl">Completed</div>
             </div>
-            <div class="kpi" style="border-left:3px solid #6366f1">
-                <div class="kpi-val" style="color:#6366f1">{{ $inProgressTasks }}</div>
+            <div class="kpi" style="--kpi-glow:#818CF8">
+                <div class="kpi-val" style="color:#818CF8">{{ $inProgressTasks }}</div>
                 <div class="kpi-lbl">In Progress</div>
             </div>
-            <div class="kpi" style="border-left:3px solid #ef4444">
-                <div class="kpi-val" style="color:#ef4444">{{ $overdueTasks }}</div>
+            <div class="kpi" style="--kpi-glow:#F87171">
+                <div class="kpi-val" style="color:#F87171">{{ $overdueTasks }}</div>
                 <div class="kpi-lbl">Overdue</div>
             </div>
-            <div class="kpi" style="border-left:3px solid #f59e0b">
-                <div class="kpi-val" style="color:#f59e0b">{{ $pendingTasks }}</div>
+            <div class="kpi" style="--kpi-glow:#FBBF24">
+                <div class="kpi-val" style="color:#FBBF24">{{ $pendingTasks }}</div>
                 <div class="kpi-lbl">Pending</div>
             </div>
         </div>
 
-        {{-- Filter bar --}}
         <div class="card-pt mb-3">
             <div class="d-flex gap-2 flex-wrap align-items-center">
                 <select class="form-select form-select-sm" style="width:auto;" id="filterStatus">
@@ -286,7 +540,6 @@
             </div>
         </div>
 
-        {{-- Tasks Table --}}
         <div class="card-pt">
             <div style="overflow-x:auto;">
                 <table class="pt-table" id="tasksTable">
@@ -307,31 +560,34 @@
                     <tbody>
                         @forelse($tasks as $task)
                             <tr data-status="{{ $task->status }}" data-priority="{{ $task->priority }}">
-                                <td style="color:var(--muted);font-size:.75rem;">#{{ $task->id }}</td>
+                                <td>#{{ $task->id }}</td>
                                 <td>
                                     <div style="font-weight:600;">{{ $task->title }}</div>
-                                    <div style="font-size:.72rem;color:var(--muted);">
-                                        {{ Str::limit($task->description, 40) }}</div>
+                                    <div class="task-desc">{{ Str::limit($task->description, 40) }}</div>
                                 </td>
                                 <td>
-                                    {{ $task->assignedUser->first_name ?? '—' }}
-                                    {{ $task->assignedUser->last_name ?? '' }}
-                                    @if ($task->assignedUser)
-                                        @php
-                                            $activeCount = $task->assignedUser
-                                                ->tasks()
-                                                ->whereIn('status', ['pending', 'in_progress'])
-                                                ->count();
-                                        @endphp
-                                        <span class="workload-pill">{{ $activeCount }} active</span>
-                                    @endif
+                                    <div class="assignee-cell">
+                                        <span class="assignee-name">
+                                            {{ $task->assignedUser->first_name ?? '—' }}
+                                            {{ $task->assignedUser->last_name ?? '' }}
+                                        </span>
+                                        @if ($task->assignedUser)
+                                            @php
+                                                $activeCount = $task->assignedUser
+                                                    ->tasks()
+                                                    ->whereIn('status', ['pending', 'in_progress'])
+                                                    ->count();
+                                            @endphp
+                                            <span class="workload-pill">{{ $activeCount }} active</span>
+                                        @endif
+                                    </div>
                                 </td>
                                 <td><span class="badge-pri {{ $task->priority }}">{{ ucfirst($task->priority) }}</span>
                                 </td>
                                 <td>
                                     {{ \Carbon\Carbon::parse($task->deadline)->format('M d, Y') }}
                                     @if (\Carbon\Carbon::parse($task->deadline)->isPast() && $task->status !== 'completed')
-                                        <div style="font-size:.68rem;color:var(--danger);">
+                                        <div class="deadline-overdue">
                                             {{ \Carbon\Carbon::parse($task->deadline)->diffForHumans() }}</div>
                                     @endif
                                 </td>
@@ -340,18 +596,18 @@
                                 </td>
                                 <td>
                                     @if ($task->prediction)
-                                        @php $pct = round($task->prediction->delay_probability * 100); @endphp
-                                        <div class="d-flex align-items-center gap-2">
-                                            <div style="width:40px;background:#e2e8f0;border-radius:999px;height:5px;">
-                                                <div
-                                                    style="width:{{ $pct }}%;height:100%;border-radius:999px;background:{{ $pct >= 70 ? '#ef4444' : ($pct >= 40 ? '#f59e0b' : '#10b981') }};">
-                                                </div>
+                                        @php
+                                            $pct = round($task->prediction->delay_probability * 100);
+                                            $ringColor = $pct >= 70 ? '#F87171' : ($pct >= 40 ? '#FBBF24' : '#34D399');
+                                        @endphp
+                                        <div class="risk-cell">
+                                            <div class="risk-ring" style="--pct:{{ $pct }};--ring-color:{{ $ringColor }}">
+                                                <div class="risk-ring-val">{{ $pct }}</div>
                                             </div>
-                                            <span
-                                                style="font-size:.72rem;font-weight:700;color:{{ $pct >= 70 ? '#ef4444' : ($pct >= 40 ? '#d97706' : '#16a34a') }};">{{ $pct }}%</span>
+                                            <span class="risk-lbl">{{ $pct }}% delay risk</span>
                                         </div>
                                     @else
-                                        <span style="font-size:.72rem;color:var(--muted);">No data</span>
+                                        <span class="no-data-lbl">No data</span>
                                     @endif
                                 </td>
                                 @if (!$isReadOnly)
@@ -382,25 +638,22 @@
         </div>
     </div>
 
-    {{-- Create Task Modal --}}
     @if (!$isReadOnly)
         <div class="modal fade" id="createTaskModal" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content p-2">
                     <div class="modal-header border-0 pb-0">
-                        <h5 class="modal-title" style="font-family:'Syne',sans-serif;font-weight:800;">New Task</h5>
+                        <h5 class="modal-title" style="font-family:var(--display);font-weight:800;">New Task</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <form method="POST" action="{{ route('business.tasks.store') }}">
                         @csrf
                         <div class="modal-body">
-
-                            {{-- Auto-assign suggestion box --}}
                             <div class="auto-assign-box" id="autoAssignBox">
                                 <i class="fas fa-magic me-2"></i>
                                 <span id="autoAssignText"></span>
                                 <button type="button" class="btn btn-sm ms-2"
-                                    style="background:#16a34a;color:#fff;border-radius:6px;font-size:.72rem;padding:.2rem .6rem;"
+                                    style="background:#34D399;color:#0A0D14;border-radius:6px;font-size:.72rem;padding:.2rem .6rem;font-weight:700;"
                                     onclick="applyAutoAssign()">Apply</button>
                             </div>
 
@@ -413,7 +666,7 @@
                                 <label class="form-label d-flex justify-content-between">
                                     <span>Assign To</span>
                                     <button type="button" class="btn btn-sm"
-                                        style="background:#e0e7ff;color:#4338ca;border-radius:6px;font-size:.72rem;padding:.2rem .7rem;border:none;"
+                                        style="background:var(--accent-dim);color:var(--accent);border-radius:6px;font-size:.72rem;padding:.2rem .7rem;border:none;"
                                         onclick="triggerAutoAssign()">
                                         <i class="fas fa-magic me-1"></i>Auto-Assign
                                     </button>
@@ -460,12 +713,11 @@
             </div>
         </div>
 
-        {{-- Edit Task Modal --}}
         <div class="modal fade" id="editTaskModal" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content p-2">
                     <div class="modal-header border-0 pb-0">
-                        <h5 class="modal-title" style="font-family:'Syne',sans-serif;font-weight:800;">Edit Task</h5>
+                        <h5 class="modal-title" style="font-family:var(--display);font-weight:800;">Edit Task</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <form method="POST" id="editTaskForm">

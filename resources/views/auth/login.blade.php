@@ -6,11 +6,60 @@
 
 @section('content')
 
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet">
+
 <style>
+    :root {
+        --accent: #818CF8;
+        --accent-strong: #6366F1;
+        --accent-dim: rgba(129, 140, 248, 0.14);
+        --danger: #F87171;
+        --danger-bg: rgba(248, 113, 113, 0.14);
+        --bg: #0A0D14;
+        --surface: #12161F;
+        --surface-2: #171C27;
+        --surface-3: #1D2330;
+        --text: #E7E9EE;
+        --muted: #8891A5;
+        --border: rgba(255, 255, 255, 0.07);
+        --border-strong: rgba(255, 255, 255, 0.14);
+        --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
+        --display: 'Manrope', sans-serif;
+        --body: 'Inter', sans-serif;
+    }
 
+    html {
+        background: var(--bg) !important;
+        color-scheme: dark;
+    }
 
-body {
-        background: url('{{ asset("layout_style/img/background1.jpg") }}') no-repeat center center fixed;
+    .loginbox,
+    .login-right,
+    .login-right-wrap,
+    .account-box,
+    .account-content,
+    .authentication-wrapper {
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+
+    input[type="checkbox"] {
+        accent-color: var(--accent);
+    }
+
+    .custom_check .checkmark {
+        background: var(--surface-2) !important;
+        border: 1px solid var(--border-strong) !important;
+    }
+
+    .custom_check input:checked ~ .checkmark {
+        background: var(--accent-strong) !important;
+        border-color: var(--accent-strong) !important;
+    }
+
+    body {
+        background: url('{{ asset("layout_style/img/background2.png") }}') no-repeat center center fixed;
         background-size: cover;
         margin: 0;
         position: relative;
@@ -18,6 +67,8 @@ body {
         display: flex;
         align-items: center;
         justify-content: center;
+        font-family: var(--body);
+        color: var(--text);
     }
 
     body::before {
@@ -27,180 +78,206 @@ body {
         left: 0;
         height: 100%;
         width: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
+        background-color: rgba(10, 13, 20, 0.78);
         z-index: 0;
     }
 
-.login-wrapper {
-  max-width: 450px;
-  background: #f8f9fd;
-  background: linear-gradient(0deg, rgb(255, 255, 255) 0%, rgb(244, 247, 251) 100%);
-  border-radius: 40px;
-  padding: 15px 20px;
-  border: 5px solid rgb(255, 255, 255);
-  box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 30px 30px -20px;
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  height: auto;
-  min-height: 70vh;
-}
+    ::selection {
+        background: var(--accent-dim);
+        color: var(--text);
+    }
 
+    .login-wrapper {
+        max-width: 450px;
+        background: var(--surface);
+        border-radius: 40px;
+        padding: 15px 20px;
+        border: 1px solid var(--border-strong);
+        box-shadow: var(--shadow), 0 30px 60px -20px rgba(0, 0, 0, 0.6);
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: auto;
+        min-height: 70vh;
+        z-index: 1;
+    }
 
-/* Styling for header and form */
-.heading {
-  text-align: center;
-  font-weight: 900;
-  font-size: 30px;
-  color: rgb(16, 137, 211);
-}
+    .heading {
+        text-align: center;
+        font-family: var(--display);
+        font-weight: 800;
+        font-size: 24px;
+        color: var(--text);
+    }
 
-.form {
-  margin-top: 20px;
-}
+    .form {
+        margin-top: 20px;
+    }
 
-.input {
-  width: 100%;
-  background: white;
-  border: none;
-  padding: 15px 20px;
-  border-radius: 20px;
-  margin-top: 15px;
-  box-shadow: #cff0ff 0px 10px 10px -5px;
-  border-inline: 2px solid transparent;
-}
+    .input {
+        width: 100%;
+        background: var(--surface-2) !important;
+        color: var(--text) !important;
+        border: none;
+        padding: 15px 20px;
+        border-radius: 20px;
+        margin-top: 15px;
+        box-shadow: inset 0 0 0 1px var(--border-strong);
+        border-inline: 2px solid transparent;
+    }
 
-.input::placeholder {
-  color: rgb(170, 170, 170);
-}
+    .input::placeholder {
+        color: var(--muted) !important;
+    }
 
-.input:focus {
-  outline: none;
-  border-inline: 2px solid #12b1d1;
-}
+    .input:focus {
+        outline: none;
+        background: var(--surface-2) !important;
+        color: var(--text) !important;
+        border-inline: 2px solid var(--accent);
+        box-shadow: 0 0 0 3px var(--accent-dim);
+    }
 
-.login-button {
-  display: block;
-  width: 100%;
-  font-weight: bold;
-  background: linear-gradient(45deg, rgb(16, 137, 211) 0%, rgb(18, 177, 209) 100%);
-  color: white;
-  padding-block: 15px;
-  margin: 20px auto;
-  border-radius: 20px;
-  box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 20px 10px -15px;
-  border: none;
-  transition: all 0.2s ease-in-out;
-}
+    .input:-webkit-autofill,
+    .input:-webkit-autofill:hover,
+    .input:-webkit-autofill:focus {
+        -webkit-text-fill-color: var(--text) !important;
+        -webkit-box-shadow: 0 0 0 1000px var(--surface-2) inset !important;
+        caret-color: var(--text);
+    }
 
-.login-button:hover {
-  transform: scale(1.03);
-  box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 23px 10px -20px;
-}
+    .login-button {
+        display: block;
+        width: 100%;
+        font-weight: bold;
+        background: linear-gradient(45deg, var(--accent-strong) 0%, var(--accent) 100%);
+        color: #fff;
+        padding-block: 15px;
+        margin: 20px auto;
+        border-radius: 20px;
+        box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.3), 0 20px 30px -15px rgba(99, 102, 241, 0.4);
+        border: none;
+        transition: all 0.2s ease-in-out;
+    }
 
-.login-button:active {
-  transform: scale(0.95);
-  box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 15px 10px -10px;
-}
+    .login-button:hover {
+        transform: scale(1.03);
+        box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.5), 0 23px 30px -20px rgba(99, 102, 241, 0.5);
+    }
 
-/* Social accounts buttons */
-.social-account-container {
-  margin-top: 25px;
-}
+    .login-button:active {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.5), 0 15px 20px -10px rgba(99, 102, 241, 0.5);
+    }
 
-.social-account-container .title {
-  display: block;
-  text-align: center;
-  font-size: 10px;
-  color: rgb(170, 170, 170);
-}
+    .social-account-container {
+        margin-top: 25px;
+    }
 
-.social-account-container .social-accounts {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-top: 5px;
-}
+    .social-account-container .title {
+        display: block;
+        text-align: center;
+        font-size: 10px;
+        color: var(--muted);
+    }
 
-.social-account-container .social-accounts .social-button {
-  background: linear-gradient(45deg, rgb(0, 0, 0) 0%, rgb(112, 112, 112) 100%);
-  border: 5px solid white;
-  padding: 5px;
-  border-radius: 50%;
-  width: 40px;
-  aspect-ratio: 1;
-  display: grid;
-  place-content: center;
-  box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 12px 10px -8px;
-  transition: all 0.2s ease-in-out;
-}
+    .social-account-container .social-accounts {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 5px;
+    }
 
-.social-account-container .social-accounts .social-button:hover {
-  transform: scale(1.2);
-}
+    .social-account-container .social-accounts .social-button {
+        background: var(--surface-3);
+        border: 5px solid var(--surface);
+        padding: 5px;
+        border-radius: 50%;
+        width: 40px;
+        aspect-ratio: 1;
+        display: grid;
+        place-content: center;
+        box-shadow: var(--shadow);
+        transition: all 0.2s ease-in-out;
+    }
 
-.social-account-container .social-accounts .social-button:active {
-  transform: scale(0.9);
-}
+    .social-account-container .social-accounts .social-button:hover {
+        transform: scale(1.2);
+    }
 
-.agreement {
-  display: block;
-  text-align: center;
-  margin-top: 15px;
-}
+    .social-account-container .social-accounts .social-button:active {
+        transform: scale(0.9);
+    }
 
-.agreement a {
-  text-decoration: none;
-  color: #0099ff;
-  font-size: 9px;
-}
-.logo-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 10px;
-}
+    .agreement {
+        display: block;
+        text-align: center;
+        margin-top: 15px;
+    }
 
-.logo-circle {
-    width: 90px;
-    height: 90px;
-    background: linear-gradient(135deg, #007bff, #00c6ff);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
+    .agreement a {
+        text-decoration: none;
+        color: var(--accent);
+        font-size: 9px;
+    }
 
-.login-logo {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-.heading {
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-}
-@keyframes shake {
-  0% { transform: translate(-50%, -50%) translateX(0); }
-  20% { transform: translate(-50%, -50%) translateX(-10px); }
-  40% { transform: translate(-50%, -50%) translateX(10px); }
-  60% { transform: translate(-50%, -50%) translateX(-10px); }
-  80% { transform: translate(-50%, -50%) translateX(10px); }
-  100% { transform: translate(-50%, -50%) translateX(0); }
-}
+    .logo-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
 
-.login-wrapper.shake {
-  animation: shake 0.5s;
-}
+    .logo-circle {
+        width: 90px;
+        height: 90px;
+        background: linear-gradient(135deg, var(--accent-strong), var(--accent));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.3), 0 8px 20px rgba(99, 102, 241, 0.35);
+    }
 
+    .login-logo {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
 
-    </style>
+    .show-password {
+        color: var(--muted);
+        font-size: .85rem;
+    }
+
+    .show-password .checkmark {
+        color: var(--text);
+    }
+
+    .text-danger {
+        color: var(--danger) !important;
+    }
+
+    .border-danger {
+        box-shadow: inset 0 0 0 1px var(--danger) !important;
+    }
+
+    @keyframes shake {
+        0% { transform: translate(-50%, -50%) translateX(0); }
+        20% { transform: translate(-50%, -50%) translateX(-10px); }
+        40% { transform: translate(-50%, -50%) translateX(10px); }
+        60% { transform: translate(-50%, -50%) translateX(-10px); }
+        80% { transform: translate(-50%, -50%) translateX(10px); }
+        100% { transform: translate(-50%, -50%) translateX(0); }
+    }
+
+    .login-wrapper.shake {
+        animation: shake 0.5s;
+    }
+</style>
 
 <div class="login-wrapper">
     <div class="loginbox">
@@ -209,7 +286,7 @@ body {
 
                 <div class="logo-container">
                     <div class="logo-circle">
-                        <img src="{{ asset('layout_style/img/logo.jpeg') }}" alt="Logo" class="login-logo">
+                        <img src="{{ asset('layout_style/img/prod.png') }}" alt="Logo" class="login-logo">
                     </div>
                 </div>
 
@@ -226,7 +303,6 @@ body {
                         <small class="text-danger err_password"></small>
                     </div>
 
-                    <!-- Show Password Toggle -->
                     <div class="remember-me show-password">
                         <label class="custom_check mr-2 mb-0 d-inline-flex remember-me">
                             Show Password
@@ -243,8 +319,6 @@ body {
         </div>
     </div>
 </div>
-
-
 
 @endsection
 
@@ -301,9 +375,6 @@ body {
             $('.err_password').text('');
             $('.password').removeClass('border-danger');
         }
-
-
-
     </script>
     <script>
     function togglePassword() {

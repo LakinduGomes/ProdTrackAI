@@ -14,9 +14,9 @@
             font-size: .78rem;
             text-transform: uppercase;
             letter-spacing: .08em;
-            color: #6366f1;
+            color: var(--brass, #818CF8);
             padding-bottom: .4rem;
-            border-bottom: 2px solid #e0e7ff;
+            border-bottom: 2px solid var(--hairline-strong, rgba(255,255,255,.14));
             margin-bottom: 1rem;
             margin-top: 1.2rem;
         }
@@ -24,14 +24,14 @@
         .form-label {
             font-size: .78rem;
             font-weight: 600;
-            color: #374151;
+            color: var(--muted, #8891A5);
         }
 
         .form-control,
         .form-select {
             border-radius: 8px;
             font-size: .83rem;
-            border: 1px solid #e2e8f0;
+            border: 1px solid var(--hairline-strong, rgba(255,255,255,.14));
         }
 
         .modal-content {
@@ -40,8 +40,8 @@
         }
 
         .login-badge {
-            background: #dcfce7;
-            color: #16a34a;
+            background: rgba(52, 211, 153, .14);
+            color: #34D399;
             font-size: .68rem;
             font-weight: 700;
             padding: .2rem .6rem;
@@ -49,12 +49,82 @@
         }
 
         .no-login-badge {
-            background: #fee2e2;
-            color: #dc2626;
+            background: rgba(248, 113, 113, .14);
+            color: #F87171;
             font-size: .68rem;
             font-weight: 700;
             padding: .2rem .6rem;
             border-radius: 6px;
+        }
+
+        /* ===== Dark card / table shell ===== */
+        .card-table {
+            background: var(--panel, #12161F) !important;
+            border: 1px solid var(--hairline, rgba(255,255,255,.07)) !important;
+            border-radius: 16px;
+            color: var(--ink, #E7E9EE) !important;
+        }
+
+        .card-table h4 {
+            color: var(--ink, #E7E9EE) !important;
+        }
+
+        #emp_table {
+            color: var(--ink, #E7E9EE) !important;
+            border-color: var(--hairline, rgba(255,255,255,.07)) !important;
+        }
+
+        #emp_table thead th {
+            background: var(--panel-2, #171C27) !important;
+            color: var(--muted, #8891A5) !important;
+            border-color: var(--hairline, rgba(255,255,255,.07)) !important;
+            font-size: .68rem;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            font-weight: 700;
+        }
+
+        #emp_table tbody td {
+            background: transparent !important;
+            color: var(--ink-soft, #C3C8D4) !important;
+            border-color: var(--hairline, rgba(255,255,255,.07)) !important;
+        }
+
+        #emp_table.table-stripped tbody tr:nth-of-type(odd) td {
+            background: var(--panel-2, #171C27) !important;
+        }
+
+        #emp_table tbody tr:hover td {
+            background: rgba(129, 140, 248, .08) !important;
+        }
+
+        /* ===== DataTables controls ===== */
+        .dataTables_wrapper .dataTables_length,
+        .dataTables_wrapper .dataTables_filter,
+        .dataTables_wrapper .dataTables_info,
+        .dataTables_wrapper .dataTables_processing {
+            color: var(--muted, #8891A5) !important;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            color: var(--ink-soft, #C3C8D4) !important;
+            border-radius: 6px !important;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current,
+        .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+            background: var(--brass-strong, #6366F1) !important;
+            color: #fff !important;
+            border-color: var(--brass-strong, #6366F1) !important;
+        }
+
+        /* ===== Section headings inside view modal ===== */
+        #viewEmployeeBody b {
+            color: var(--ink, #E7E9EE);
+        }
+
+        #viewEmployeeBody {
+            color: var(--ink-soft, #C3C8D4);
         }
     </style>
 
@@ -321,12 +391,12 @@
                         data: 'employment_status',
                         render: function(d) {
                             let colors = {
-                                active: '#dcfce7|#16a34a',
-                                on_leave: '#fef3c7|#d97706',
-                                resigned: '#fee2e2|#dc2626',
-                                terminated: '#f1f5f9|#64748b'
+                                active: 'rgba(52,211,153,.14)|#34D399',
+                                on_leave: 'rgba(251,191,36,.14)|#FBBF24',
+                                resigned: 'rgba(248,113,113,.14)|#F87171',
+                                terminated: 'rgba(154,161,176,.14)|#9AA1B0'
                             };
-                            let c = ((colors[d]) || '#f1f5f9|#64748b').split('|');
+                            let c = ((colors[d]) || 'rgba(154,161,176,.14)|#9AA1B0').split('|');
                             return `<span style="background:${c[0]};color:${c[1]};padding:2px 8px;border-radius:6px;font-size:.72rem;font-weight:700;">${d ? d.replace('_', ' ') : '—'}</span>`;
                         }
                     },

@@ -55,6 +55,154 @@
     
 
     <style>
+        /* ===== Base theme (matches dashboard — dark by default, not a toggle) ===== */
+        :root {
+            --canvas:  #0A0D14;
+            --panel:   #12161F;
+            --panel-2: #171C27;
+            --ink:     #E7E9EE;
+            --ink-soft:#C3C8D4;
+            --muted:   #8891A5;
+            --muted-2: #6b7280;
+            --hairline: rgba(255,255,255,.07);
+            --hairline-strong: rgba(255,255,255,.14);
+            --brass:   #818CF8;
+            --brass-strong: #6366F1;
+            --red:     #F87171;
+        }
+
+        html, body {
+            background-color: var(--canvas) !important;
+            color: var(--ink) !important;
+        }
+
+        .main-wrapper .header {
+            background-color: var(--panel) !important;
+            border-bottom: 1px solid var(--hairline) !important;
+        }
+
+        .header .logo span {
+            color: var(--ink) !important;
+        }
+
+        .compact-toggle {
+            color: var(--ink) !important;
+        }
+
+        .compact-toggle svg {
+            stroke: var(--ink) !important;
+        }
+
+        .user-menu .user-link .user-names h5 {
+            color: var(--ink) !important;
+        }
+
+        .sidebar {
+            background-color: var(--panel) !important;
+            border-right: 1px solid var(--hairline) !important;
+        }
+
+        .sidebar-inner,
+        #sidebar-menu {
+            background-color: var(--panel) !important;
+        }
+
+        .sidebar-menu ul li.menu-title {
+            color: var(--muted-2) !important;
+        }
+
+        .sidebar-menu ul li > a {
+            color: var(--ink-soft) !important;
+        }
+
+        .sidebar-menu ul li > a:hover,
+        .sidebar-menu ul li.active > a {
+            background-color: var(--panel-2) !important;
+            color: var(--brass) !important;
+        }
+
+        .sidebar-menu .sub-menu {
+            background-color: #0f1319 !important;
+        }
+
+        .sidebar-menu .sub-menu li a {
+            color: var(--muted) !important;
+        }
+
+        .sidebar-menu .sub-menu li a:hover {
+            color: var(--brass) !important;
+        }
+
+        .logout-btn a {
+            color: var(--red) !important;
+        }
+
+        .page-wrapper,
+        .page-wrapper .content {
+            background-color: var(--canvas) !important;
+        }
+
+        .dropdown-menu {
+            background-color: var(--panel) !important;
+            color: var(--ink) !important;
+            border: 1px solid var(--hairline-strong) !important;
+        }
+
+        .dropdown-item {
+            color: var(--ink-soft) !important;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--panel-2) !important;
+            color: var(--ink) !important;
+        }
+
+        .modal-content {
+            background-color: var(--panel) !important;
+            color: var(--ink) !important;
+            border: 1px solid var(--hairline-strong) !important;
+        }
+
+        .modal-header {
+            background-color: var(--panel-2) !important;
+            border-bottom: 1px solid var(--hairline) !important;
+        }
+
+        .modal-header .modal-title,
+        .modal-title i {
+            color: var(--ink) !important;
+        }
+
+        .btn-close {
+            filter: invert(1) brightness(2);
+        }
+
+        .form-control,
+        .form-select,
+        select,
+        textarea {
+            background-color: var(--panel-2) !important;
+            color: var(--ink) !important;
+            border-color: var(--hairline-strong) !important;
+        }
+
+        .form-floating label {
+            color: var(--muted) !important;
+        }
+
+        .btn-primary {
+            background-color: var(--brass-strong) !important;
+            border-color: var(--brass-strong) !important;
+        }
+
+        .btn-primary:hover {
+            background-color: #4f52e0 !important;
+        }
+
+        .btn-outline-secondary {
+            color: var(--ink-soft) !important;
+            border-color: var(--hairline-strong) !important;
+        }
         .toggle-password {
             position: absolute;
             top: 50%;
@@ -100,8 +248,9 @@
             transform: scale(1);
         }
 
+        /* ===== Dark mode base ===== */
         body.dark-mode {
-            background-color: #121212;
+            background-color: #0A0D14;
             color: #ffffff !important;
         }
 
@@ -116,6 +265,79 @@
         .dark-mode .topbar,
         .dark-mode .modal-content {
             background-color: #1e1e1e !important;
+        }
+
+        /* ===== Header / logo bar ===== */
+        .dark-mode .main-wrapper .header {
+            background-color: #12161F !important;
+            border-bottom: 1px solid rgba(255, 255, 255, .07) !important;
+        }
+
+        .dark-mode .header .logo span {
+            color: #E7E9EE !important;
+        }
+
+        .dark-mode .compact-toggle {
+            color: #E7E9EE !important;
+        }
+
+        .dark-mode .compact-toggle svg {
+            stroke: #E7E9EE !important;
+        }
+
+        .dark-mode .user-menu .user-link .user-names h5 {
+            color: #E7E9EE !important;
+        }
+
+        /* ===== Sidebar / navigation ===== */
+        .dark-mode .sidebar {
+            background-color: #12161F !important;
+            border-right: 1px solid rgba(255, 255, 255, .07) !important;
+        }
+
+        .dark-mode .sidebar-inner,
+        .dark-mode #sidebar-menu {
+            background-color: #12161F !important;
+        }
+
+        .dark-mode .sidebar-menu ul li.menu-title {
+            color: #6b7280 !important;
+        }
+
+        .dark-mode .sidebar-menu ul li > a {
+            color: #C3C8D4 !important;
+        }
+
+        .dark-mode .sidebar-menu ul li > a:hover,
+        .dark-mode .sidebar-menu ul li.active > a {
+            background-color: #171C27 !important;
+            color: #818CF8 !important;
+        }
+
+        .dark-mode .sidebar-menu .sub-menu {
+            background-color: #0f1319 !important;
+        }
+
+        .dark-mode .sidebar-menu .sub-menu li a {
+            color: #9AA1B0 !important;
+        }
+
+        .dark-mode .sidebar-menu .sub-menu li a:hover {
+            color: #818CF8 !important;
+        }
+
+        .dark-mode .sidebar-menu .menu-arrow {
+            border-color: #6b7280 transparent transparent !important;
+        }
+
+        .dark-mode .logout-btn a {
+            color: #F87171 !important;
+        }
+
+        /* ===== Page body ===== */
+        .dark-mode .page-wrapper,
+        .dark-mode .page-wrapper .content {
+            background-color: #0A0D14 !important;
         }
 
         .dark-mode table,
@@ -205,6 +427,10 @@
             border-color: #555 !important;
         }
 
+        .dark-mode .form-floating label {
+            color: #8891A5 !important;
+        }
+
         .dark-mode .btn {
             background-color: #333 !important;
             color: #ffffff !important;
@@ -214,6 +440,15 @@
         .dark-mode .btn:hover {
             background-color: #444 !important;
             border-color: #666 !important;
+        }
+
+        .dark-mode .btn-primary {
+            background-color: #6366F1 !important;
+            border-color: #6366F1 !important;
+        }
+
+        .dark-mode .btn-primary:hover {
+            background-color: #4f52e0 !important;
         }
 
         .dark-mode .pagination>li>a {
@@ -229,13 +464,6 @@
         .dark-mode .dropdown-item:hover {
             background-color: #444 !important;
             color: #fff !important;
-        }
-
-        .dark-mode .dt-button,
-        .dark-mode .buttons-html5 {
-            background-color: #444 !important;
-            color: #fff !important;
-            border: 1px solid #666 !important;
         }
 
         /* Submenu text color */
@@ -356,7 +584,7 @@
         <div class="header admin-dashboard">
             <div class="header-left">
                 <a href="javascript:;" class="logo">
-                    <img src="{{ asset('layout_style/img/logo.jpeg') }}" width="75" height="75" alt>
+                    <img src="{{ asset('layout_style/img/prod.png') }}" width="45" height="45" alt>
                     <span style="font-size: 10px;">{{ env('APP_NAME') }}</span>
                 </a>
             </div>
@@ -367,16 +595,6 @@
                     src="{{ asset('layout_style/img/icons/menu-bar.svg') }}" style="width:24px" alt></a>
 
             <ul class="nav user-menu float-end">
-                <button id="darkModeToggle" class="compact-toggle" aria-label="Toggle dark mode">
-                    <svg class="icon sun" viewBox="0 0 24 24" fill="none" width="20" height="20" stroke="currentColor">
-                        <circle cx="12" cy="12" r="5" />
-                        <path
-                            d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
-                    </svg>
-                    <svg class="icon moon" viewBox="0 0 24 24" fill="none" width="20" height="20" stroke="currentColor">
-                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
-                    </svg>
-                </button>
                 <li class="nav-item dropdown has-arrow user-profile-list">
                     <a href="#" class="dropdown-toggle nav-link user-link" data-bs-toggle="dropdown">
                         <div class="user-names">
@@ -809,28 +1027,6 @@
 
         });
     </script>
-    <script>
-        const toggleBtn = document.getElementById('darkModeToggle');
-
-        toggleBtn.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-
-            if (document.body.classList.contains('dark-mode')) {
-                localStorage.setItem('darkMode', 'enabled');
-            } else {
-                localStorage.setItem('darkMode', 'disabled');
-            }
-        });
-
-        window.addEventListener('DOMContentLoaded', () => {
-            if (localStorage.getItem('darkMode') === 'enabled') {
-                document.body.classList.add('dark-mode');
-            }
-        });
-    </script>
-
-
-
     {{--
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
